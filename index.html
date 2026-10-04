@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/src/icon.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="/src/style.css">
+
+  <title>Вотермиф - спаси мир</title>
+  <!-- фентези шрифты -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Pinyon+Script&family=Russo+One&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="game-container">
+    <div class="overlay"></div>
+    <button id="music-toggle-btn" class="music-btn" title="Включить/Выключить музыку">🔊</button>
+
+    <div id="start-overlay">
+      <h1 class="game-title">ВОТЕРМИФ</h1>
+      <p class="game-subtitle">Спаси мир от надвигающейся тьмы.</p>
+
+      <button id="start-game-btn">НАЧАТЬ ПУТЕШЕСТВИЕ</button>
+    </div>
+
+    <div id="dialog-box" class="hidden">
+      <div>
+        <div id="speaker-name">Вотермиф</div>
+        <div id="story-text">Загрузка истории...</div>
+      </div>
+
+      <div id="choices-container"></div>
+
+      <div id="input-container" class="hidden">
+        <input type="text" id="text-input" autocomplete="off" placeholder="Введите Ваш ответ...">
+        <button class="submit-btn" id="submit-btn">Ответить</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bg-music" src="/music/bg_music.mp3" loop></audio>
+  <script src="/src/game.js"></script>
+</body>
+</html>
