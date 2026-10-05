@@ -11,7 +11,8 @@ const elements = {
   inputContainer: document.getElementById('input-container'),
   textInput: document.getElementById('text-input'),
   submitBtn: document.getElementById('submit-btn'),
-  musicBtn: document.getElementById('music-toggle-btn')
+  musicBtn: document.getElementById('music-toggle-btn'),
+  hideUiBtn: document.getElementById('hide-ui-btn')
 };
 
 const BACKGROUNDS = {
@@ -25,8 +26,10 @@ const BACKGROUNDS = {
 };
 
 const bgMusic = document.getElementById('bg-music');
-let isMuted = false;
 bgMusic.volume = 0.3;
+let isMuted = false;
+
+let isUiHidden = false;
 
 const startOverlay = document.getElementById('start-overlay');
 const startGameBtn = document.getElementById('start-game-btn');
@@ -262,6 +265,7 @@ startGameBtn.addEventListener('click', () => {
   setTimeout(() => {
     startOverlay.classList.add('hidden');
     dialogBox.classList.remove('hidden');
+    elements.hideUiBtn.classList.remove('hidden');
 
     renderScene('start');
   }, 800);
@@ -283,8 +287,33 @@ elements.musicBtn.addEventListener('click', () => {
 
 
 
+// === СКРЫТИЕ ИСТОРИИ ДЛЯ ПРОСМОТРА ФОНА ===
+elements.hideUiBtn.addEventListener('click', () => {
+  isUiHidden = !isUiHidden;
+
+  if(isUiHidden) {
+    dialogBox.classList.add('ui-hidden');
+    elements.container.classList.add('bg-pan');
+    elements.hideUiBtn.textContent = '👁️‍🗨️';
+  } else {
+    dialogBox.classList.remove('ui-hidden');
+    elements.container.classList.remove('bg-pan');
+    elements.hideUiBtn.textContent = '👁️';
+  }
+});
+
+
+
 // === ОТРИСОВКА СЦЕНЫ ===
 function renderScene(sceneKey) {
+  // возврат интерфейса, если пользователь скрыл его на прошлой сцене
+  if(isUiHidden) {
+    isUiHidden = false;
+    dialogBox.classList.remove('ui-hidden');
+    elements.container.classList.remove('bg-pan');
+    elements.hideUiBtn.textContent = '👁️';
+  }
+
   const scene = scenes[sceneKey];
   if(!scene) return;
   if(scene.bg) elements.container.style.backgroundImage = `url('${scene.bg}')`;

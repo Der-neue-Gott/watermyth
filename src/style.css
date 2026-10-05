@@ -37,6 +37,16 @@ body, html {
   align-items: center;
 }
 
+/* эффект панорамирования фона для осмотра */
+#game-container.bg-pan {
+  animation: panBackground 12s ease-in-out infinite alternate;
+}
+
+@keyframes panBackground {
+  0% { background-position: left center; }
+  100% { background-position: right center; }
+}
+
 /* визуальный затемнитель */
 .overlay {
   position: absolute;
@@ -121,6 +131,13 @@ body, html {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#dialog-box.ui-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
 }
 
 #speaker-name {
@@ -144,11 +161,13 @@ body, html {
   padding-right: 5px;
 }
 
-#story-text::-webkit-scrollbar {
+#story-text::-webkit-scrollbar,
+#dialog-box::-webkit-scrollbar {
   width: 4px;
 }
 
-#story-text::-webkit-scrollbar-thumb {
+#story-text::-webkit-scrollbar-thumb,
+#dialog-box::-webkit-scrollbar-thumb {
   background: #8b6b3e;
   border-radius: 4px;
 }
@@ -199,6 +218,10 @@ body, html {
   border-radius: 4px;
   transition: all 0.2s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .choice-btn:hover {
@@ -250,12 +273,17 @@ body, html {
 }
 
 
-/* Выключение музыки */
-.music-btn {
+/* Панель управления музыкой и фоном */
+.top-controls {
   position: absolute;
   top: 15px;
   right: 15px;
   z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+
+.ctrl-btn {
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid #ffd700;
   color: #fff;
@@ -272,18 +300,24 @@ body, html {
   user-select: none;
 }
 
-.music-btn:hover {
+.ctrl-btn:hover {
   background: rgba(255, 215, 0, 0.2);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-.music-btn.muted {
+.ctrl-btn.muted {
   opacity: 0.6;
   border-color: #888;
 }
 
 
 /* Служебное */
+@media (min-width: 769px) {
+  #hide-ui-btn {
+    display: none !important; /* на ПК скрытие не работает */
+  }
+}
+
 .hidden {
   display: none !important;
 }
@@ -305,10 +339,12 @@ body, html {
 
   #dialog-box {
     width: 94%;
-    max-height: 50vh;
+    max-height: 65vh;
     min-height: auto;
     margin-bottom: 12px;
     padding: 16px;
+    overflow-y: auto;
+    justify-content: flex-start;
   }
 
   #speaker-name {
@@ -320,7 +356,7 @@ body, html {
     font-size: 0.95rem;
     line-height: 1.45;
     margin-bottom: 12px;
-    max-height: 30vh;
+    max-height: none;
   }
 
   #input-container {
@@ -338,14 +374,21 @@ body, html {
     padding: 12px;
   }
 
+  #choices-container {
+    gap: 8px;
+  }
+
   .choice-btn {
     padding: 10px 14px;
     font-size: 0.9rem;
   }
 
-  .music-btn {
+  .top-controls {
     top: 10px;
     right: 10px;
+  }
+
+  .ctrl-btn {
     width: 38px;
     height: 38px;
     font-size: 16px;
