@@ -28,6 +28,7 @@ body, html {
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* учет шторки и вырез камеры на мобилках */
   background: #1a1615 center/cover no-repeat;
   transition: background-image 0.8s ease-in-out;
   display: flex;
@@ -62,6 +63,8 @@ body, html {
   z-index: 100;
   backdrop-filter: blur(5px);
   transition: opacity 0.8s ease, visibility 0.8s;
+  padding: 20px;
+  text-align: center;
 }
 
 .game-title {
@@ -137,6 +140,17 @@ body, html {
   text-shadow: 1px 1px 1px #000;
   margin-bottom: 20px;
   white-space: pre-line;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+#story-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+#story-text::-webkit-scrollbar-thumb {
+  background: #8b6b3e;
+  border-radius: 4px;
 }
 
 
@@ -201,6 +215,7 @@ body, html {
   display: flex;
   gap: 10px;
   margin-top: 10px;
+  width: 100%;
 }
 
 #text-input {
@@ -246,7 +261,12 @@ body, html {
   color: #fff;
   font-size: 20px;
   padding: 8px 12px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
@@ -266,4 +286,69 @@ body, html {
 /* Служебное */
 .hidden {
   display: none !important;
+}
+
+
+
+/* АДАПТИВ ДЛЯ МОБИЛОК */
+@media (max-width: 768px) {
+
+  .game-title {
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+  }
+
+  .game-subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+
+  #dialog-box {
+    width: 94%;
+    max-height: 50vh;
+    min-height: auto;
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+
+  #speaker-name {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  #story-text {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+    max-height: 30vh;
+  }
+
+  #input-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #text-input {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .choice-btn {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  .music-btn {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
 }
